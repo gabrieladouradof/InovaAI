@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultoria para Startups</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Consultoria para Startups</h1>
+
+        <!-- Formulário para gerar consultoria -->
+
+    <form action="{{ url_for('generate_content') }}" method="post">
+        <input type="hidden" name="prompt_id" value="">
+        <label for="theme">Qual é o desafio atual da sua startup?</label>
+        <input type="text" id="theme" name="theme" required>
+        <label for="main_message">Quais são as suas metas?</label>
+        <input type="text" id="main_message" name="main_message" required>
+        <label for="points">Quais áreas você gostaria de focar (ex: marketing, finanças, produto)?</label>
+        <textarea id="points" name="points" rows="4" required></textarea>
+        <label for="additional_info">Alguma informação adicional?</label>
+        <textarea id="additional_info" name="additional_info" rows="4"></textarea>
+        <button type="submit">Gerar Consultoria</button>
+    </form>
+
+
+   <!-- Exibição do conteúdo gerado pela IA -->
+  <div>
+        {% if content %}
+            <p><strong>Conteúdo Gerado pela IA:</strong></p>
+            <p>{{ content }}</p>
+        {% endif %}
+    </div>
+
+ <!-- Formulário de edição de solicitação -->
+
+    <form id="editForm" action="" method="post" style="display:none;">
+    <input type="hidden" name="prompt_id" value="">
+    <label for="theme">Qual é o desafio atual da sua startup?</label>
+    <input type="text" id="theme" name="theme" required>
+    <label for="main_message">Quais são as suas metas?</label>
+    <input type="text" id="main_message" name="main_message" required>
+    <label for="points">Quais áreas você gostaria de focar (ex: marketing, finanças, produto)?</label>
+    <textarea id="points" name="points" rows="4" required></textarea>
+    <label for="additional_info">Alguma informação adicional?</label>
+    <textarea id="additional_info" name="additional_info" rows="4"></textarea>
+    <button type="submit" name="save_changes">Salvar Alterações</button>
+    <button type="submit" name="delete_prompt">Excluir</button>
+
+</form>
+
+<ul>
+    {% for prompt in prompts %}
+        <li>
+            <p><strong>Desafio Atual:</strong> {{ prompt.theme }}</p>
+            <p><strong>Metas:</strong> {{ prompt.main_message }}</p>
+            <p><strong>Áreas de Interesse:</strong> {{ prompt.points }}</p>
+            <p><strong>Informações Adicionais:</strong> {{ prompt.additional_info }}</p>
+            <form onsubmit="editPrompt({{ prompt.id }}, '{{ prompt.theme }}', '{{ prompt.main_message }}', '{{ prompt.points }}', '{{ prompt.additional_info }}'); return false;">
+            <button type="submit">Editar</button>
+            </form>
+            <form action="{{ url_for('delete_prompt', id=prompt.id) }}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir esta solicitação?');">
+            <button type="submit">Excluir</button>
+            </form>
+
+        </li>
+    {% endfor %}
+</ul>
+
+   <!-- Script JavaScript para manipulação do formulário de edição -->
+   <script>
+        function editPrompt(id, theme, main_message, points, additional_info) {
+            document.querySelector('#editForm').action = "{{ url_for('edit_content', request_id=0) }}".replace('0', id);
+            document.querySelector('#editForm input[name="prompt_id"]').value = id;
+            document.querySelector('#editForm input[name="theme"]').value = theme;
+            document.querySelector('#editForm input[name="main_message"]').value = main_message;
+            document.querySelector('#editForm textarea[name="points"]').value = points;
+            document.querySelector('#editForm textarea[name="additional_info"]').value = additional_info;
+            document.querySelector('#editForm').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
