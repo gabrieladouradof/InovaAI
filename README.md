@@ -4,9 +4,9 @@ Seja bem-vindo ao InovaAI! Para acessar:
 
  Os padroes de Projeto foram:
 
- SINGLETON
- FACTORY METHOD
- OBSERVER
+ SINGLETON,
+ FACTORY METHOD e
+ OBSERVER.
 
  Especificando o Singleton: 
 
