@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InovaAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Adicionado estilo personalizado para a página index */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .jumbotron {
+            background-color: #0066cc;
+            color: #fff;
+            padding: 50px;
+            border-radius: 5px;
+            margin-top: 50px;
+        }
+
+        .cta-button {
+            background-color: #fff;
+            color: #0066cc;
+            border: 2px solid #0066cc;
+            padding: 10px 20px;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bem-vindo ao InovaAI! Seu portal de Consultoria para Startups</h1>
+        <p>Receba dicas e estratégias personalizadas para sua startup, com a ajuda da Inteligência Artificial.</p>
+        <div class="jumbotron">
+            <h2>Transforme sua jornada com a InovaAI!</h2>
+            <p>A InovaAI ajuda empreendedores a inovar, fornecendo consultoria personalizada e estratégias exclusivas.</p>
+             <p>Seja em Early Stage ou Scale-Up, o nosso objetivo é ajudar seu agora.</p>
+            <a href="{{ url_for('auth') }}" class="cta-button">Faça seu Login ou Cadastre-se</a>
+        </div>
+    </div>
+</body>
+</html>
